@@ -1,6 +1,7 @@
 import express from 'express';
 import log4js from 'log4js';
-import SearchController from './controllers/OnSearchController';
+import OnSearchController from './controllers/OnSearchController';
+import SearchController from './controllers/SearchController';
 
 const app = express();
 const logger = log4js.getLogger();
@@ -14,7 +15,8 @@ app.get('/', (req, res) => {
   res.send(`Sample BAP is running ${new Date()}`);
 });
 
-app.post('/on_search', SearchController.onSearch);
+app.post('/search', SearchController.search);
+app.post('/on_search', OnSearchController.onSearch);
 
 app.listen(port, () => {
   logger.info(`Sample BAP listening on port ${port}`);
