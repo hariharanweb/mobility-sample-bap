@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/search', SearchController.search);
+app.get('/search', SearchController.searchResult);
 app.post('/on_search', OnSearchController.onSearch);
 
 app.listen(port, () => {

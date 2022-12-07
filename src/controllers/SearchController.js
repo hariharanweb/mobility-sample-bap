@@ -5,6 +5,11 @@ const search = async (req, res) => {
   res.send(context);
 };
 
+const searchResult = (req, res) => {
+  res.send(SearchService.getSearchResult(req.query.message_id));
+};
+
 export default {
   search,
+  searchResult,
 };

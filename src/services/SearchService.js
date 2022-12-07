@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import log4js from 'log4js';
 import Api from '../api/Api';
+import MessageRespository from '../repo/MessageRespository';
 import ContextBuilder from '../utilities/ContextBuilder';
 
 dotenv.config();
@@ -20,6 +21,12 @@ const search = async (message) => {
   return context;
 };
 
+const storeSearchResult = (response) => MessageRespository.storeResult(response);
+
+const getSearchResult = (messageId) => MessageRespository.getResult(messageId);
+
 export default {
   search,
+  getSearchResult,
+  storeSearchResult,
 };
