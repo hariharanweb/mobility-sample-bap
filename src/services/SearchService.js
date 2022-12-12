@@ -20,7 +20,9 @@ const search = async (message) => {
   return context;
 };
 
-const storeSearchResult = (response) => MessageRespository.storeResult(response);
+const storeSearchResult = (response) => {
+  MessageRespository.storeResult(response);
+};
 
 const getSearchResult = (messageId) => MessageRespository.getResult(messageId);
 
