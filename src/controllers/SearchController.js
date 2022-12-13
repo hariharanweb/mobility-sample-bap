@@ -6,7 +6,12 @@ const search = async (req, res) => {
 };
 
 const searchResult = (req, res) => {
-  res.send(SearchService.getSearchResult(req.query.message_id));
+  const searchResponse = SearchService.getSearchResult(req.query.message_id);
+  if (searchResponse) {
+    res.send(searchResponse);
+  } else {
+    res.send([]);
+  }
 };
 
 export default {
