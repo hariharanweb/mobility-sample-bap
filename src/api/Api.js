@@ -1,8 +1,8 @@
-import log4js from 'log4js';
 import fetch from 'node-fetch';
+import LoggingService from '../services/LoggingService';
 
 const doPost = (url, body) => {
-  const logger = log4js.getLogger('SearchService');
+  const logger = LoggingService.getLogger('API');
   logger.debug(`Posting to ${url} with Content ${JSON.stringify(body)}`);
   return fetch(
     url,

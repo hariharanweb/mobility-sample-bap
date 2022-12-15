@@ -1,9 +1,9 @@
-import log4js from 'log4js';
 import Api from '../api/Api';
 import ContextBuilder from '../utilities/ContextBuilder';
+import LoggingService from './LoggingService';
 
 const select = async (selectRequest) => {
-  const logger = log4js.getLogger('SelectService');
+  const logger = LoggingService.getLogger('SelectService');
   const context = ContextBuilder.getContext('select', selectRequest.context);
   const { message } = selectRequest;
   const selectPayload = {

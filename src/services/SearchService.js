@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv';
-import log4js from 'log4js';
 import Api from '../api/Api';
 import MessageRespository from '../repo/MessageRespository';
 import ContextBuilder from '../utilities/ContextBuilder';
+import LoggingService from './LoggingService';
 
 dotenv.config();
 
 const search = async (message) => {
-  const logger = log4js.getLogger('SearchService');
+  const logger = LoggingService.getLogger('SearchService');
+  logger.debug(`Search called with ${JSON.stringify(message)}`);
   const context = ContextBuilder.getContext('search');
   const searchRequest = {
     context,

@@ -1,12 +1,11 @@
 import express from 'express';
-import log4js from 'log4js';
 import OnSearchController from './controllers/OnSearchController';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
+import LoggingService from './services/LoggingService';
 
 const app = express();
-const logger = log4js.getLogger();
-logger.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'debug';
+const logger = LoggingService.getLogger('App');
 const port = process.env.BUYER_APP_PORT ? process.env.BUYER_APP_PORT : 2010;
 
 app.use(express.json());
