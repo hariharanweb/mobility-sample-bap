@@ -1,3 +1,8 @@
+## Mobility ONDC BAP
+
+- This is sample mobility BAP
+- Runs on http://localhost:2010
+
 ## Running BAP as Docker
 
 - Build image `docker build -t bap:latest .`
