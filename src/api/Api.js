@@ -1,19 +1,11 @@
 import fetch from 'node-fetch';
-// eslint-disable-next-line camelcase
 import sodium from 'libsodium-wrappers';
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
 import LoggingService from '../services/LoggingService';
 
 const doPost = async (url, body) => {
   const logger = LoggingService.getLogger('API');
   logger.debug(`Posting to ${url} with Content ${JSON.stringify(body)}`);
-
-  const privateKey = fs.readFileSync(
-    path.resolve('./src/api/CertificateBAP/privateKey.txt'),
-    'utf-8',
-  );
 
   const signature = await createSignatureWithSodium(JSON.stringify(body));
   console.log(`The signature is ${signature}`);
@@ -29,8 +21,6 @@ const doPost = async (url, body) => {
     },
   });
 };
-
-const createSignature = (body) => crypto.sign(null, Buffer.from(body), privateKey);
 
 const createSignatureWithSodium = async (body) => {
   const created = Math.floor(
@@ -53,8 +43,6 @@ digest: BLAKE-512=${digest_base64}`;
   return sodium.to_base64(signedMessage, sodium.base64_variants.ORIGINAL);
 };
 
-//-------------------------
-
 const createAuthorizationHeader = (signature) => {
   const created = Math.floor(new Date().getTime() / 1000 - 1 * 60).toString(); // TO USE IN CASE OF TIME ISSUE
   const expires = (parseInt(created) + 1 * 60 * 60).toString(); // Add required time to create expired
@@ -63,8 +51,6 @@ const createAuthorizationHeader = (signature) => {
   console.log(header);
   return header;
 };
-
-//--------------
 
 export default {
   doPost,
