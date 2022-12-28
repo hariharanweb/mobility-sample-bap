@@ -1,10 +1,10 @@
-import Api from "../api/Api";
+import Api from '../api/Api';
 
 const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
 
 const getPublicKey = async (type) => {
   const request = JSON.stringify({
-    type: type,
+    type,
   });
 
   const response = await Api.doPost(REGISTRY_URL, request);
