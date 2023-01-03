@@ -1,5 +1,4 @@
 import sodium from 'libsodium-wrappers';
-import fetch from 'node-fetch';
 import LoggingService from '../services/LoggingService';
 import Api from '../api/Api';
 
