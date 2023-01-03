@@ -23,7 +23,7 @@ const search = async (message) => {
   };
 
   const url = `${process.env.GATEWAY_URL}/search`;
-  const response = await Api.doPost(url, searchRequest);
+  const response = await Api.doPost(url, JSON.stringify(searchRequest));
   const responseText = await response.text();
   logger.debug(`Response ${responseText}`);
   return context;

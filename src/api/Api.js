@@ -1,9 +1,8 @@
 import fetch from 'node-fetch';
 import sodium from 'libsodium-wrappers';
-import crypto from 'crypto';
 import LoggingService from '../services/LoggingService';
 
-const doPost = async (url, body) => {
+const doPost = async (url, bodyValue) => {
   const logger = LoggingService.getLogger('API');
   logger.debug(`Posting to ${url} with Content ${JSON.stringify(body)}`);
 
@@ -14,7 +13,7 @@ const doPost = async (url, body) => {
 
   return fetch(url, {
     method: 'post',
-    body: JSON.stringify(body),
+    body: bodyValue,
     headers: {
       'X-Gateway-Authorization': gatewayAuthHeaderValue,
       'Content-Type': 'application/json',
