@@ -18,7 +18,6 @@ const search = async (message) => {
   };
 
   const response = await Api.doPost(url, JSON.stringify(searchRequest));
-
   const responseText = await response.text();
   logger.debug(`Response ${responseText}`);
   return context;
