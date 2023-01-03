@@ -4,11 +4,13 @@ import genericResponse from './GenericResponse';
 import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 
 const BecknGateway = 'BG';
-const onSearch = (req, res) => {
+const onSearch = async (req, res) => {
   const logger = LoggingService.getLogger('OnSearchController');
   logger.debug(`on_search called with ${JSON.stringify(req.body)}`);
 
-  authVerifier.authorize(req, BecknGateway).then(() => {
+  const publicKey = await genericResponse.getPublicKey(BecknGateway);
+  authVerifier.authorize(req, publicKey).then(() => {
+    logger.debug('Request Authorized Successfully.');
     SearchService.storeSearchResult(req.body);
     genericResponse.sendAcknowledgement(res);
   }).catch((err) => {

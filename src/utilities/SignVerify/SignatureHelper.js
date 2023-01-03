@@ -1,6 +1,6 @@
 import sodium from 'libsodium-wrappers';
 import LoggingService from '../../services/LoggingService';
-import AuthHeaderSplitter from './AuthHeaderSplitter'
+import AuthHeaderSplitter from './AuthHeaderSplitter';
 
 const logger = LoggingService.getLogger('SignatureHelper');
 
@@ -15,13 +15,19 @@ const getCreatedAndExpires = () => {
   return [created, expires];
 };
 
+const concatinateSignature = (created, expires, digestBase64) => `(created): ${created}
+(expires): ${expires}
+digest: BLAKE-512=${digestBase64}`;
+
 const createSignature = async (body, createdAndExpiresValue, privateKey) => {
   await sodium.ready;
   const digest = sodium.crypto_generichash(64, sodium.from_string(body));
   const digestBase64 = sodium.to_base64(digest, sodium.base64_variants.ORIGINAL);
-  const signingString = `(created): ${createdAndExpiresValue[0]}
-    (expires): ${createdAndExpiresValue[1]}
-    digest: BLAKE-512=${digestBase64}`;
+  const signingString = concatinateSignature(
+    createdAndExpiresValue[0],
+    createdAndExpiresValue[1],
+    digestBase64,
+  );
   logger.debug(`Digest Base 64: ${digestBase64}`);
   logger.debug(`Signing String : ${signingString}`);
 
@@ -29,7 +35,7 @@ const createSignature = async (body, createdAndExpiresValue, privateKey) => {
     signingString,
     sodium.from_base64(privateKey, sodium.base64_variants.ORIGINAL),
   );
-  const signedMessageBase64 = sodium.to_base64(signedMessage, sodium.base64_variants.ORIGINAL)
+  const signedMessageBase64 = sodium.to_base64(signedMessage, sodium.base64_variants.ORIGINAL);
   logger.debug(`Signed Message: ${signedMessageBase64}`);
   return signedMessageBase64;
 };
@@ -66,10 +72,11 @@ const createSigningStringUsingTime = async (body, created, expires) => {
     sodium.base64_variants.ORIGINAL,
   );
   logger.debug(`Digest Base 64: ${digestBase64}`);
-
-  const signingString = `(created): ${created}
-  (expires): ${expires}
-  digest: BLAKE-512=${digestBase64}`;
+  const signingString = concatinateSignature(
+    created,
+    expires,
+    digestBase64,
+  );
   logger.debug(`Signing String : ${signingString}`);
 
   return signingString;

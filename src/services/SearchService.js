@@ -20,6 +20,9 @@ const search = async (message) => {
   const response = await Api.doPost(url, JSON.stringify(searchRequest));
   const responseText = await response.text();
   logger.debug(`Response ${responseText}`);
+
+  // TODO 2 : in case the response comes as 401
+  // we need respond gracefully as failed, currently we are sending context in call cases. 
   return context;
 };
 
