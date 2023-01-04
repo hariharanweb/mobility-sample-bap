@@ -1,6 +1,6 @@
 import Api from "../api/Api";
 
-const REGISTRY_URL = `${process.env.GATEWAY_URL}/lookup`;
+const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
 
 const getPublicKey = async (type) => {
   const request = JSON.stringify({
