@@ -12,7 +12,7 @@ const select = async (selectRequest) => {
   };
   const url = `${selectRequest.context.bpp_uri}/select`;
 
-  const selectResponse = await Api.doPost(url, selectPayload);
+  const selectResponse = await Api.doPost(url, JSON.stringify(selectPayload));
   const responseText = await selectResponse.text();
   logger.debug(`Response ${responseText}`);
   return context;

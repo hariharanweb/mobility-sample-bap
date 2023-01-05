@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 dotenv.config();
 
-const getContext = (action) => ({
+const getContext = (action) => ({  
   domain: 'nic2004:60221',
   country: 'IND',
   city: 'std:080',
