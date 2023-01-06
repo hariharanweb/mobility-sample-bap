@@ -4,9 +4,8 @@ import LoggingService from './LoggingService';
 
 const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
 const logger = LoggingService.getLogger('LookUpService');
-// const cache = Cache.createCache(200000, 200000);
 
-const lookUpPublicKey = async (cachekey, ukId) => {
+const lookUpPublicKey = async (ukId) => {
   const request = JSON.stringify({
     ukId,
   });
@@ -23,7 +22,7 @@ const getPublicKey = async (ukId) => {
     logger.debug(`the public key is: ${publicKey}`);
     return publicKey;
   }
-  const referencedPublicKey = await lookUpPublicKey(cachekey, ukId);
+  const referencedPublicKey = await lookUpPublicKey(ukId);
   Cache.setCache(cachekey, referencedPublicKey, 200000);
   logger.debug(`the public key is: ${referencedPublicKey}`);
   return referencedPublicKey;
