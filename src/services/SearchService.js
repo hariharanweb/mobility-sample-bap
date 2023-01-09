@@ -22,7 +22,7 @@ const search = async (message) => {
   logger.debug(`Response ${responseText}`);
 
   // TODO 2 : in case the response comes as 401
-  // we need respond gracefully as failed, currently we are sending context in call cases. 
+  // we need respond gracefully as failed, currently we are sending context in call cases.
   return context;
 };
 

@@ -4,6 +4,7 @@ import authHeader from '../utilities/SignVerify/AuthHeader';
 
 const doPost = async (url, body) => {
   const logger = LoggingService.getLogger('API');
+
   logger.debug(`Posting to ${url} with Content ${body}`);
 
   const privateKey = `${process.env.PRIVATE_KEY}`;
