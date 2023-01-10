@@ -10,14 +10,17 @@ const onSearch = async (req, res) => {
   logger.debug(`on_search called with ${JSON.stringify(req.body)}`);
 
   const publicKey = await LookUpService.getPublicKey(BecknGateway);
-  authVerifier.authorize(req, publicKey).then(() => {
-    logger.debug('Request Authorized Successfully.');
-    SearchService.storeSearchResult(req.body);
-    genericResponse.sendAcknowledgement(res);
-  }).catch((err) => {
-    logger.error(`Authorization Failed ${err}`);
-    genericResponse.sendErrorWithAuthorization(res);
-  });
+  authVerifier
+    .authorize(req, publicKey)
+    .then(() => {
+      logger.debug('Request Authorized Successfully.');
+      SearchService.storeSearchResult(req.body);
+      genericResponse.sendAcknowledgement(res);
+    })
+    .catch((err) => {
+      logger.error(`Authorization Failed ${err}`);
+      genericResponse.sendErrorWithAuthorization(res);
+    });
 };
 
 export default {
