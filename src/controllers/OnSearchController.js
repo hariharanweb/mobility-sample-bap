@@ -4,7 +4,7 @@ import genericResponse from '../utilities/GenericResponse';
 import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 import LookUpService from '../services/LookUpService';
 
-const ukID = '111-222-303';
+const ukID = process.env.UKID;
 const onSearch = async (req, res) => {
   const logger = LoggingService.getLogger('OnSearchController');
   logger.debug(`on_search called with ${JSON.stringify(req.body)}`);
