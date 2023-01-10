@@ -27,7 +27,25 @@ const getPublicKey = async (type) => {
   logger.debug(`the public key is: ${pulicKeyFromLookUp}`);
   return pulicKeyFromLookUp;
 };
+const getPublicKeyWithUkId = async (ukId) => {
+  const cachekey = `publicKey - ${ukId};`;
+  const publicKey = await Cache.getCache(cachekey);
+  if (publicKey) {
+    logger.debug(`the public key is: ${publicKey}`);
+    return publicKey;
+  }
+  const request = JSON.stringify({
+    ukId,
+  });
+
+  const response = await Api.doPost(REGISTRY_URL, request);
+  const responseJson = await response.json();
+  Cache.setCache(cachekey, responseJson[0].signing_public_key, 200000);
+  logger.debug(`the public key is: ${responseJson[0].signing_public_key}`);
+  return responseJson[0].signing_public_key;
+};
 
 export default {
   getPublicKey,
+  getPublicKeyWithUkId,
 };
