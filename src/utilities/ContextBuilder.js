@@ -15,6 +15,7 @@ const getContext = (action) => ({
   transaction_id: uuid(),
   message_id: uuid(),
   timestamp: moment().format(),
+  ukId: '111-222-301',
 });
 
 const getContextWithContext = (action, context) => ({
@@ -29,6 +30,7 @@ const getContextWithContext = (action, context) => ({
   transaction_id: uuid(),
   message_id: uuid(),
   timestamp: moment().format(),
+  ukId: '111-222-301',
 });
 
 export default {
