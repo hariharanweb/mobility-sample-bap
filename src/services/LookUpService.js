@@ -19,10 +19,10 @@ const getPublicKey = async (type) => {
     logger.debug(`the public key is: ${publicKey}`);
     return publicKey;
   }
-  const request = JSON.stringify({
+  const requestForLookUpWithType = JSON.stringify({
     type,
   });
-  const pulicKeyFromLookUp = await lookUpPublicKey(request);
+  const pulicKeyFromLookUp = await lookUpPublicKey(requestForLookUpWithType);
   Cache.setCache(cachekey, pulicKeyFromLookUp, 200000);
   logger.debug(`the public key is: ${pulicKeyFromLookUp}`);
   return pulicKeyFromLookUp;
@@ -34,11 +34,11 @@ const getPublicKeyWithUkId = async (ukId) => {
     logger.debug(`the public key is: ${publicKey}`);
     return publicKey;
   }
-  const request = JSON.stringify({
+  const requestForLookUpWithUkId = JSON.stringify({
     ukId,
   });
 
-  const pulicKeyFromLookUp = await lookUpPublicKey(request);
+  const pulicKeyFromLookUp = await lookUpPublicKey(requestForLookUpWithUkId);
   Cache.setCache(cachekey, pulicKeyFromLookUp, 200000);
   logger.debug(`the public key is: ${pulicKeyFromLookUp}`);
   return pulicKeyFromLookUp;
