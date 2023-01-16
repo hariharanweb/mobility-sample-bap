@@ -5,10 +5,7 @@ import LoggingService from './LoggingService';
 const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
 const logger = LoggingService.getLogger('LookUpService');
 
-const lookUpPublicKey = async (type) => {
-  const request = JSON.stringify({
-    type,
-  });
+const lookUpPublicKey = async (request) => {
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
   logger.debug(`the looked up publickey is: ${responseJson[0].signing_public_key}`);
@@ -22,7 +19,10 @@ const getPublicKey = async (type) => {
     logger.debug(`the public key is: ${publicKey}`);
     return publicKey;
   }
-  const pulicKeyFromLookUp = await lookUpPublicKey(type);
+  const requestForLookUpWithType = JSON.stringify({
+    type,
+  });
+  const pulicKeyFromLookUp = await lookUpPublicKey(requestForLookUpWithType);
   Cache.setCache(cachekey, pulicKeyFromLookUp, 200000);
   logger.debug(`the public key is: ${pulicKeyFromLookUp}`);
   return pulicKeyFromLookUp;
@@ -34,15 +34,14 @@ const getPublicKeyWithUkId = async (ukId) => {
     logger.debug(`the public key is: ${publicKey}`);
     return publicKey;
   }
-  const request = JSON.stringify({
+  const requestForLookUpWithUkId = JSON.stringify({
     ukId,
   });
 
-  const response = await Api.doPost(REGISTRY_URL, request);
-  const responseJson = await response.json();
-  Cache.setCache(cachekey, responseJson[0].signing_public_key, 200000);
-  logger.debug(`the public key is: ${responseJson[0].signing_public_key}`);
-  return responseJson[0].signing_public_key;
+  const pulicKeyFromLookUp = await lookUpPublicKey(requestForLookUpWithUkId);
+  Cache.setCache(cachekey, pulicKeyFromLookUp, 200000);
+  logger.debug(`the public key is: ${pulicKeyFromLookUp}`);
+  return pulicKeyFromLookUp;
 };
 
 export default {
