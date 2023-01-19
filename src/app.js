@@ -6,6 +6,8 @@ import OnSelectController from './controllers/OnSelectController';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import LoggingService from './services/LoggingService';
+import InitController from './controllers/InitController';
+import OnInitController from './controllers/OnInitController';
 
 const app = express();
 const logger = LoggingService.getLogger('App');
@@ -29,6 +31,10 @@ app.get('/select', SelectController.selectResult);
 app.post('/confirm', ConfirmController.confirm);
 app.post('/on_confirm', OnConfirmController.onConfirm);
 app.get('/confirm', ConfirmController.confirmResult);
+
+app.post('/init', InitController.init);
+app.post('/on_init', OnInitController.onInit);
+app.get('/init', InitController.initResult);
 
 app.listen(port, () => {
   logger.info(`Sample BAP listening on port ${port}`);
