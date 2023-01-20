@@ -1,4 +1,6 @@
 import express from 'express';
+import ConfirmController from './controllers/ConfirmController';
+import OnConfirmController from './controllers/OnConfirmController';
 import OnSearchController from './controllers/OnSearchController';
 import OnSelectController from './controllers/OnSelectController';
 import SearchController from './controllers/SearchController';
@@ -25,6 +27,10 @@ app.post('/on_search', OnSearchController.onSearch);
 app.post('/select', SelectController.select);
 app.post('/on_select', OnSelectController.onSelect);
 app.get('/select', SelectController.selectResult);
+
+app.post('/confirm', ConfirmController.confirm);
+app.post('/on_confirm', OnConfirmController.onConfirm);
+app.get('/confirm', ConfirmController.confirmResult);
 
 app.post('/init', InitController.init);
 app.post('/on_init', OnInitController.onInit);
