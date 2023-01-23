@@ -8,6 +8,8 @@ import SelectController from './controllers/SelectController';
 import LoggingService from './services/LoggingService';
 import InitController from './controllers/InitController';
 import OnInitController from './controllers/OnInitController';
+import StatusController from './controllers/StatusController';
+import OnStatusController from './controllers/OnStatusController';
 
 const app = express();
 const logger = LoggingService.getLogger('App');
@@ -35,6 +37,10 @@ app.get('/confirm', ConfirmController.confirmResult);
 app.post('/init', InitController.init);
 app.post('/on_init', OnInitController.onInit);
 app.get('/init', InitController.initResult);
+
+app.post('/status', StatusController.status);
+app.post('/on_status', OnStatusController.onStatus);
+app.get('/status', StatusController.statusResult);
 
 app.listen(port, () => {
   logger.info(`Sample BAP listening on port ${port}`);
