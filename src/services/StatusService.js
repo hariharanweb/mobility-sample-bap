@@ -24,7 +24,7 @@ const status = async (statusRequest) => {
 };
 
 const storeStatusResult = (response) => {
-    MessageRespository.storeResult(response);
+  MessageRespository.storeResult(response);
 };
 
 const getStatusResult = (messageId) => MessageRespository.getResult(messageId);
