@@ -20,5 +20,5 @@ const onTrack = async (req, res) => {
 };
 
 export default {
-    onTrack,
+  onTrack,
 };
