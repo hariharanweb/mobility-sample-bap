@@ -7,8 +7,8 @@ import LookUpService from '../services/LookUpService';
 const onStatus = async (req, res) => {
   const logger = LoggingService.getLogger('OnStatusController');
   logger.debug(`on_status called with ${JSON.stringify(req.body)}`);
-  logger.debug(req.body.message.order.id);
-  const publicKey = await LookUpService.getPublicKeyWithUkId(req.body.message.order.provider.id);
+  logger.debug(req.body.context.bpp_id);
+  const publicKey = await LookUpService.getPublicKeyWithUkId(req.body.context.bpp_id);
   authVerifier.authorize(req, publicKey).then(() => {
     logger.debug('Request Authorized Successfully.');
     // logger.debug(req.body.message.id);
