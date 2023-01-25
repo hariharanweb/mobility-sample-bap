@@ -6,7 +6,7 @@ const track = async (req, res) => {
 };
 
 const trackResult = (req, res) => {
-  const trackResponse = TrackService.getTrackResult(req.query.orderId);
+  const trackResponse = TrackService.getTrackResult(req.query.message_id);
   if (trackResponse) {
     res.send(trackResponse);
   } else {

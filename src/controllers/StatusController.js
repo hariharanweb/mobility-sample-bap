@@ -6,7 +6,7 @@ const status = async (req, res) => {
 };
 
 const statusResult = (req, res) => {
-  const statusResponse = StatusService.getStatusResult(req.query.orderId);
+  const statusResponse = StatusService.getStatusResult(req.query.message_id);
   if (statusResponse) {
     res.send(statusResponse);
   } else {
