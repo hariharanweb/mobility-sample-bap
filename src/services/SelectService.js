@@ -8,8 +8,8 @@ dotenv.config();
 
 const select = async (selectRequest) => {
   const logger = LoggingService.getLogger('SelectService');
-  const context = ContextBuilder.getContext('select');
   const { message } = selectRequest;
+  const context = ContextBuilder.getContextWithContext('select', selectRequest.context);
   const selectPayload = {
     context,
     message,

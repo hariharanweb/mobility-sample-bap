@@ -8,7 +8,7 @@ dotenv.config();
 
 const init = async (initRequest) => {
   const logger = LoggingService.getLogger('InitService');
-  const context = ContextBuilder.getContext('init');
+  const context = ContextBuilder.getContextWithContext('init', initRequest.context);
   const { message } = initRequest;
   const initPayload = {
     context,

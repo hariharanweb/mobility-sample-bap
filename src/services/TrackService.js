@@ -8,7 +8,7 @@ dotenv.config();
 
 const track = async (trackRequest) => {
   const logger = LoggingService.getLogger('TrackService');
-  const context = ContextBuilder.getContext('track');
+  const context = ContextBuilder.getContextWithContext('track', trackRequest.context);
   const { message } = trackRequest;
   const trackPayload = {
     context,

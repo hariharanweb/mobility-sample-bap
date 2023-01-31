@@ -8,7 +8,7 @@ dotenv.config();
 
 const status = async (statusRequest) => {
   const logger = LoggingService.getLogger('StatusService');
-  const context = ContextBuilder.getContext('status');
+  const context = ContextBuilder.getContextWithContext('status', statusRequest.context);
   const { message } = statusRequest;
   const statusPayload = {
     context,
