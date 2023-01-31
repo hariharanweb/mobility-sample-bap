@@ -8,7 +8,7 @@ dotenv.config();
 
 const confirm = async (confirmRequest) => {
   const logger = LoggingService.getLogger('ConfirmService');
-  const context = ContextBuilder.getContext('confirm');
+  const context = ContextBuilder.getContextWithContext('confirm', confirmRequest.context);
   const { message } = confirmRequest;
   const confirmPayload = {
     context,
