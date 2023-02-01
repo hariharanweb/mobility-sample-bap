@@ -17,6 +17,12 @@ const getContext = (action) => ({
   timestamp: moment().format(),
 });
 
+const getSubscriberContext = () => ({
+  operation: {
+    ops_no: 1,
+  },
+});
+
 const getContextWithContext = (action, context) => ({
   ...context,
   domain: 'nic2004:60221',
@@ -33,5 +39,6 @@ const getContextWithContext = (action, context) => ({
 
 export default {
   getContext,
+  getSubscriberContext,
   getContextWithContext,
 };
