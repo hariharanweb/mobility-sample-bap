@@ -12,6 +12,8 @@ import StatusController from './controllers/StatusController';
 import OnStatusController from './controllers/OnStatusController';
 import TrackController from './controllers/TrackController';
 import OnTrackController from './controllers/OnTrackController';
+import SubscribeController from './controllers/SubscribeController';
+import OnSubscribeController from './controllers/OnSubscribeController';
 
 const app = express();
 const logger = LoggingService.getLogger('App');
@@ -47,6 +49,9 @@ app.get('/status', StatusController.statusResult);
 app.post('/track', TrackController.track);
 app.post('/on_track', OnTrackController.onTrack);
 app.get('/track', TrackController.trackResult);
+
+app.post('/subscribe', SubscribeController.subscribe);
+app.post('/on_subscribe', OnSubscribeController.onSubscribe);
 
 app.listen(port, () => {
   logger.info(`Sample BAP listening on port ${port}`);
