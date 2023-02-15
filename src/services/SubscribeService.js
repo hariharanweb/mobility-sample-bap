@@ -52,7 +52,7 @@ const subscribe = async (message) => {
       },
       network_participant: [
         {
-          subscriber_url: '/test1',
+          subscriber_url: process.env.BUYER_APP_URL,
           domain: process.env.NETWORK_PARTICIPANT_DOMAIN,
           type: process.env.NETWORK_PARTICIPANT_TYPE,
           msn: false,
