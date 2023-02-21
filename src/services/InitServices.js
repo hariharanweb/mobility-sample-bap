@@ -5,9 +5,9 @@ import LoggingService from './LoggingService';
 import MessageRespository from '../repo/MessageRespository';
 
 dotenv.config();
+const logger = LoggingService.getLogger('InitService');
 
 const init = async (initRequest) => {
-  const logger = LoggingService.getLogger('InitService');
   const context = ContextBuilder.getContextWithContext('init', initRequest.context);
   const { message } = initRequest;
   const initPayload = {
@@ -15,7 +15,7 @@ const init = async (initRequest) => {
     message,
   };
   const url = `${initRequest.context.bpp_uri}/init`;
-  logger.debug(`Inite Pay Load ${initPayload}`);
+  logger.debug(`Init Pay Load ${JSON.stringify(initPayload)}`);
 
   const initResponse = await Api.doPost(url, JSON.stringify(initPayload));
   const responseText = await initResponse.text();
