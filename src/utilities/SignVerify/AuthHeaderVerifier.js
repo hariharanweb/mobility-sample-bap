@@ -20,8 +20,7 @@ const authorize = async (req, publicKey) => {
     const signature = SignatureHelper.getSignature(req.headers);
     if (typeof signature === 'undefined') {
       logger.error('Empty Signature in Header from BAP');
-      // eslint-disable-next-line no-throw-literal
-      throw 'Signature Field is Empty';
+      throw Error('Signature Field is Empty');
     }
     const signingString = await SignatureHelper.createSigningStringUsingTime(
       req.body,
@@ -32,8 +31,7 @@ const authorize = async (req, publicKey) => {
     if (verify(signingString, publicKey, signature)) {
       return true;
     }
-    // eslint-disable-next-line no-throw-literal
-    throw 'Verification Failed';
+    throw Error('Verification Failed');
   } catch (err) {
     logger.error(`Error Triggered: ${err}`);
     throw err;
