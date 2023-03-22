@@ -34,13 +34,15 @@ const dirname = path.dirname(filename);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(dirname, '__public__')));
+
 app.set('view engine', 'pug');
 app.set('views', path.join(dirname, 'views'));
-app.use(express.static(path.join(dirname, 'public')));
+// app.use(express.static(path.join(dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.send(`Sample BAP is running ${new Date()}`);
-});
+// app.get('/', (req, res) => {
+//   res.send(`Sample BAP is running ${new Date()}`);
+// });
 
 app.post('/search', SearchController.search);
 app.get('/search', SearchController.searchResult);
@@ -80,7 +82,6 @@ const registerVerificationPage = async (application) => {
     });
   });
 };
-
 app.listen(port, async () => {
   logger.info(`Sample BAP listening on port ${port}`);
 
