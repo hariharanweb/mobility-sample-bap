@@ -2,15 +2,15 @@ import {
   beforeEach, describe, expect, it, vi,
 } from 'vitest';
 import LookUpService from '../services/LookUpService';
-import OnConfirmController from './OnConfirmController';
+import OnInitController from './OnInitController';
 import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
-import ConfirmService from '../services/ConfirmService';
 import GenericResponse from '../utilities/GenericResponse';
+import InitServices from '../services/InitServices';
 
 beforeEach(() => {
   LookUpService.getPublicKeyWithUkId = vi.fn();
   authVerifier.authorize = vi.fn(() => Promise.resolve(true));
-  ConfirmService.storeConfirmResult = vi.fn();
+  InitServices.storeInitResult = vi.fn();
   GenericResponse.sendAcknowledgement = vi.fn();
   GenericResponse.sendErrorWithAuthorization = vi.fn();
 });
@@ -54,32 +54,32 @@ const request = {
   },
 };
 
-describe('should test OnConfirm', () => {
+describe('should test OnInit', () => {
   it('should test whether public key is acquired', async () => {
-    await OnConfirmController.onConfirm(request);
+    await OnInitController.onInit(request);
     expect(LookUpService.getPublicKeyWithUkId).toBeCalled();
   });
 
   it('should test for authorize is called', async () => {
-    await OnConfirmController.onConfirm(request);
+    await OnInitController.onInit(request);
     expect(authVerifier.authorize).toHaveBeenCalled();
   });
 
-  it('should test for storeConfirmResult is called', async () => {
-    await OnConfirmController.onConfirm(request);
-    expect(ConfirmService.storeConfirmResult).toBeCalled();
+  it('should test for storeInitResult is called', async () => {
+    await OnInitController.onInit(request);
+    expect(InitServices.storeInitResult).toBeCalled();
   });
 
   it('should test for onConfirm response', async () => {
     const res = {};
-    await OnConfirmController.onConfirm(request, res);
+    await OnInitController.onInit(request, res);
     expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 
   it('should test for authorization failure', async () => {
     authVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await OnConfirmController.onConfirm(request, res);
+    await OnInitController.onInit(request, res);
     expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
   });
 });
