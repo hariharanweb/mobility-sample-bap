@@ -25,7 +25,7 @@ process.env.REQUEST_ID = uuid();
 
 const app = express();
 const logger = LoggingService.getLogger('App');
-const port = process.env.BUYER_APP_PORT ? process.env.BUYER_APP_PORT : 2010;
+const port = process.env.PORT ? process.env.PORT : 2010;
 
 const filename = fileURLToPath(import.meta.url);
 
