@@ -4,8 +4,6 @@ import {
 import SelectService from '../services/SelectService';
 import SelectController from './SelectController';
 
-vi.mock('../services/SearchService');
-
 beforeEach(() => {
   SelectService.select = vi.fn();
   SelectService.getSelectResult = vi.fn();

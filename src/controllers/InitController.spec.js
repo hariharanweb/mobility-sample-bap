@@ -4,8 +4,6 @@ import {
 import InitController from './InitController';
 import InitServices from '../services/InitServices';
 
-// vi.mock('../services/InitServices');
-
 beforeEach(() => {
   InitServices.init = vi.fn();
   InitServices.getInitResult = vi.fn();

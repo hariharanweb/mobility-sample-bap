@@ -4,8 +4,6 @@ import {
 import SearchController from './SearchController';
 import SearchService from '../services/SearchService';
 
-vi.mock('../services/SearchService');
-
 beforeEach(() => {
   SearchService.search = vi.fn();
   SearchService.getSearchResult = vi.fn();
