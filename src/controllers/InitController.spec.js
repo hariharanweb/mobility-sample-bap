@@ -1,14 +1,14 @@
 import {
   beforeEach, describe, expect, it, vi,
 } from 'vitest';
-import ConfirmController from './ConfirmController';
-import ConfirmService from '../services/ConfirmService';
+import InitController from './InitController';
+import InitServices from '../services/InitServices';
 
-vi.mock('../services/ConfirmService');
+// vi.mock('../services/InitServices');
 
 beforeEach(() => {
-  ConfirmService.confirm = vi.fn();
-  ConfirmService.confirm = vi.fn();
+  InitServices.init = vi.fn();
+  InitServices.getInitResult = vi.fn();
 });
 
 const request = {
@@ -34,24 +34,24 @@ const request = {
   },
 };
 
-describe('should test confirm controller', () => {
-  it('should test confirm service is called', async () => {
+describe('should test Init controller', () => {
+  it('should test init service is called', async () => {
     const res = {};
     res.send = vi.fn();
-    await ConfirmController.confirm(request, res);
-    expect(ConfirmService.confirm).toBeCalled();
+    await InitController.init(request, res);
+    expect(InitServices.init).toBeCalled();
   });
 
   it('should test whether the response is send', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');
-    await ConfirmController.confirm(request, res);
+    await InitController.init(request, res);
     expect(res.send).toBeCalled();
   });
 });
 
-describe('should test confirmResult in conifrm controller', () => {
-  it('should test whether the getConfirmResult from confirm service is called', async () => {
+describe('should test initResult in init controller', () => {
+  it('should test whether the getInitResult from search service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');
     const req = {
@@ -59,7 +59,7 @@ describe('should test confirmResult in conifrm controller', () => {
         message_id: '1111',
       },
     };
-    await ConfirmController.confirmResult(req, res);
-    expect(ConfirmService.getConfirmResult).toBeCalled();
+    await InitController.initResult(req, res);
+    expect(InitServices.getInitResult).toBeCalled();
   });
 });
