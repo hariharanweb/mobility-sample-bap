@@ -9,14 +9,15 @@ const onTrack = async (req, res) => {
   logger.debug(`on_track called with ${JSON.stringify(req.body)}`);
   logger.debug(req.body.context.bpp_id);
   const publicKey = await LookUpService.getPublicKeyWithSubscriberId(req.body.context.bpp_id);
-  authVerifier.authorize(req, publicKey).then(() => {
+  try {
+    await authVerifier.authorize(req, publicKey);
     logger.debug('Request Authorized Successfully.');
     TrackService.storeTrackResult(req.body);
     genericResponse.sendAcknowledgement(res);
-  }).catch((err) => {
-    logger.error(`Authorization Failed ${err}`);
+  } catch (error) {
+    logger.error(`Authorization Failed ${error}`);
     genericResponse.sendErrorWithAuthorization(res);
-  });
+  }
 };
 
 export default {
