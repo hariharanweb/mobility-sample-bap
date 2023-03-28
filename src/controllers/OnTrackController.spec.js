@@ -2,15 +2,15 @@ import {
   beforeEach, describe, expect, it, vi,
 } from 'vitest';
 import LookUpService from '../services/LookUpService';
-import OnInitController from './OnInitController';
+import OnTrackController from './OnTrackController';
 import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 import GenericResponse from '../utilities/GenericResponse';
-import InitServices from '../services/InitServices';
+import TrackService from '../services/TrackService';
 
 beforeEach(() => {
-  LookUpService.getPublicKeyWithUkId = vi.fn();
+  LookUpService.getPublicKeyWithSubscriberId = vi.fn();
   authVerifier.authorize = vi.fn(() => Promise.resolve(true));
-  InitServices.storeInitResult = vi.fn();
+  TrackService.storeTrackResult = vi.fn();
   GenericResponse.sendAcknowledgement = vi.fn();
   GenericResponse.sendErrorWithAuthorization = vi.fn();
 });
@@ -54,32 +54,32 @@ const request = {
   },
 };
 
-describe('should test OnInit', () => {
+describe('should test OnStatus', () => {
   it('should test whether public key is acquired', async () => {
-    await OnInitController.onInit(request);
-    expect(LookUpService.getPublicKeyWithUkId).toBeCalled();
+    await OnTrackController.onTrack(request);
+    expect(LookUpService.getPublicKeyWithSubscriberId).toBeCalled();
   });
 
   it('should test for authorize is called', async () => {
-    await OnInitController.onInit(request);
+    await OnTrackController.onTrack(request);
     expect(authVerifier.authorize).toHaveBeenCalled();
   });
 
-  it('should test for storeInitResult is called', async () => {
-    await OnInitController.onInit(request);
-    expect(InitServices.storeInitResult).toBeCalled();
+  it('should test for storeTrackResult is called', async () => {
+    await OnTrackController.onTrack(request);
+    expect(TrackService.storeTrackResult).toBeCalled();
   });
 
-  it('should test for onInit response', async () => {
+  it('should test for onTrack response', async () => {
     const res = {};
-    await OnInitController.onInit(request, res);
+    await OnTrackController.onTrack(request, res);
     expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 
   it('should test for authorization failure', async () => {
     authVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await OnInitController.onInit(request, res);
+    await OnTrackController.onTrack(request, res);
     expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
   });
 });

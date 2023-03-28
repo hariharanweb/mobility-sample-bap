@@ -1,19 +1,8 @@
 import {
-  beforeEach, describe, expect, it, vi,
+  describe, expect, it, vi,
 } from 'vitest';
-import LookUpService from '../services/LookUpService';
-import OnInitController from './OnInitController';
-import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
+import OnSubscribeController from './OnSubscribeController';
 import GenericResponse from '../utilities/GenericResponse';
-import InitServices from '../services/InitServices';
-
-beforeEach(() => {
-  LookUpService.getPublicKeyWithUkId = vi.fn();
-  authVerifier.authorize = vi.fn(() => Promise.resolve(true));
-  InitServices.storeInitResult = vi.fn();
-  GenericResponse.sendAcknowledgement = vi.fn();
-  GenericResponse.sendErrorWithAuthorization = vi.fn();
-});
 
 const request = {
   body: {
@@ -54,32 +43,11 @@ const request = {
   },
 };
 
-describe('should test OnInit', () => {
-  it('should test whether public key is acquired', async () => {
-    await OnInitController.onInit(request);
-    expect(LookUpService.getPublicKeyWithUkId).toBeCalled();
-  });
+GenericResponse.sendAcknowledgement = vi.fn();
 
-  it('should test for authorize is called', async () => {
-    await OnInitController.onInit(request);
-    expect(authVerifier.authorize).toHaveBeenCalled();
-  });
-
-  it('should test for storeInitResult is called', async () => {
-    await OnInitController.onInit(request);
-    expect(InitServices.storeInitResult).toBeCalled();
-  });
-
-  it('should test for onInit response', async () => {
-    const res = {};
-    await OnInitController.onInit(request, res);
-    expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
-  });
-
-  it('should test for authorization failure', async () => {
-    authVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
-    const res = {};
-    await OnInitController.onInit(request, res);
-    expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
+describe('should test OnSubscribe', () => {
+  it('should test whether response is send on subscribe call', async () => {
+    await OnSubscribeController.onSubscribe(request);
+    expect(GenericResponse.sendAcknowledgement).toBeCalled();
   });
 });

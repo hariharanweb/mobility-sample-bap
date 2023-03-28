@@ -9,14 +9,15 @@ const onSelect = async (req, res) => {
   logger.debug(`on_select called with ${JSON.stringify(req.body)}`);
   logger.debug(req.body.message.order.provider.id);
   const publicKey = await LookUpService.getPublicKeyWithUkId(req.body.message.order.provider.id);
-  authVerifier.authorize(req, publicKey).then(() => {
+  try {
+    await authVerifier.authorize(req, publicKey);
     logger.debug('Request Authorized Successfully.');
     SelectService.storeSelectResult(req.body);
     genericResponse.sendAcknowledgement(res);
-  }).catch((err) => {
-    logger.error(`Authorization Failed ${err}`);
+  } catch (error) {
+    logger.error(`Authorization Failed ${error}`);
     genericResponse.sendErrorWithAuthorization(res);
-  });
+  }
 };
 
 export default {

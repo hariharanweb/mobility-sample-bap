@@ -2,15 +2,15 @@ import {
   beforeEach, describe, expect, it, vi,
 } from 'vitest';
 import LookUpService from '../services/LookUpService';
-import OnInitController from './OnInitController';
+import OnStatusController from './OnStatusController';
 import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 import GenericResponse from '../utilities/GenericResponse';
-import InitServices from '../services/InitServices';
+import StatusService from '../services/StatusService';
 
 beforeEach(() => {
-  LookUpService.getPublicKeyWithUkId = vi.fn();
+  LookUpService.getPublicKeyWithSubscriberId = vi.fn();
   authVerifier.authorize = vi.fn(() => Promise.resolve(true));
-  InitServices.storeInitResult = vi.fn();
+  StatusService.storeStatusResult = vi.fn();
   GenericResponse.sendAcknowledgement = vi.fn();
   GenericResponse.sendErrorWithAuthorization = vi.fn();
 });
@@ -54,32 +54,32 @@ const request = {
   },
 };
 
-describe('should test OnInit', () => {
+describe('should test OnStatus', () => {
   it('should test whether public key is acquired', async () => {
-    await OnInitController.onInit(request);
-    expect(LookUpService.getPublicKeyWithUkId).toBeCalled();
+    await OnStatusController.onStatus(request);
+    expect(LookUpService.getPublicKeyWithSubscriberId).toBeCalled();
   });
 
   it('should test for authorize is called', async () => {
-    await OnInitController.onInit(request);
+    await OnStatusController.onStatus(request);
     expect(authVerifier.authorize).toHaveBeenCalled();
   });
 
-  it('should test for storeInitResult is called', async () => {
-    await OnInitController.onInit(request);
-    expect(InitServices.storeInitResult).toBeCalled();
+  it('should test for storeStatusResult is called', async () => {
+    await OnStatusController.onStatus(request);
+    expect(StatusService.storeStatusResult).toBeCalled();
   });
 
-  it('should test for onInit response', async () => {
+  it('should test for onStatus response', async () => {
     const res = {};
-    await OnInitController.onInit(request, res);
+    await OnStatusController.onStatus(request, res);
     expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 
   it('should test for authorization failure', async () => {
     authVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await OnInitController.onInit(request, res);
+    await OnStatusController.onStatus(request, res);
     expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
   });
 });

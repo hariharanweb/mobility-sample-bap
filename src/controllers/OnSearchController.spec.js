@@ -65,12 +65,12 @@ describe('should test OnInit', () => {
     expect(authVerifier.authorize).toHaveBeenCalled();
   });
 
-  it('should test for storeInitResult is called', async () => {
+  it('should test for storeSearchResult is called', async () => {
     await OnSearchController.onSearch(request);
     expect(SearchService.storeSearchResult).toBeCalled();
   });
 
-  it('should test for onConfirm response', async () => {
+  it('should test for onSearch response', async () => {
     const res = {};
     await OnSearchController.onSearch(request, res);
     expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
