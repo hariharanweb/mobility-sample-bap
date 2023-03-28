@@ -48,7 +48,7 @@ const request = {
   },
 };
 
-describe('test status from statusController', () => {
+describe('Status Controller', () => {
   it('should test status service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');
@@ -62,9 +62,7 @@ describe('test status from statusController', () => {
     await StatusController.status(request, res);
     expect(res.send).toBeCalled();
   });
-});
 
-describe('should test statusResult in status controller', () => {
   it('should test whether the getStatustResult from statusService is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');

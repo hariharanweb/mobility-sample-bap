@@ -17,7 +17,7 @@ const context = {
   bpp_uri: '',
 };
 
-describe('test context builder', () => {
+describe('Context Builder', () => {
   it('should test getContext', () => {
     const action = 'select';
     const contextResult = contextBuilder.getContext(action);

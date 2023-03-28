@@ -32,7 +32,7 @@ const request = {
   },
 };
 
-describe('should test select controller', () => {
+describe('Select Controller', () => {
   it('should test select service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');
@@ -46,9 +46,7 @@ describe('should test select controller', () => {
     await SelectController.select(request, res);
     expect(res.send).toBeCalled();
   });
-});
 
-describe('should test selectResult in select controller', () => {
   it('should test whether the getSelectResult from selectService is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');

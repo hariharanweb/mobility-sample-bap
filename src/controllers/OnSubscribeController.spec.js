@@ -45,7 +45,7 @@ const request = {
 
 GenericResponse.sendAcknowledgement = vi.fn();
 
-describe('should test OnSubscribe', () => {
+describe('OnSubscribe Controller', () => {
   it('should test whether response is send on subscribe call', async () => {
     await OnSubscribeController.onSubscribe(request);
     expect(GenericResponse.sendAcknowledgement).toBeCalled();

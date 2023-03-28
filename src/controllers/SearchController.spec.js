@@ -32,7 +32,7 @@ const request = {
   },
 };
 
-describe('should test search in controller', () => {
+describe('Search Controller', () => {
   it('should test search service is called', async () => {
     const res = {};
     res.send = vi.fn();

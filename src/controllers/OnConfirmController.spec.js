@@ -54,7 +54,7 @@ const request = {
   },
 };
 
-describe('should test OnConfirm', () => {
+describe('OnConfirm Controller', () => {
   it('should test whether public key is acquired', async () => {
     await OnConfirmController.onConfirm(request);
     expect(LookUpService.getPublicKeyWithUkId).toBeCalled();

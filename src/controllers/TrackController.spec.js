@@ -32,7 +32,7 @@ const request = {
   },
 };
 
-describe('should test track controller', () => {
+describe('Track Controller', () => {
   it('should test track service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');
@@ -46,9 +46,7 @@ describe('should test track controller', () => {
     await TrackController.track(request, res);
     expect(res.send).toBeCalled();
   });
-});
 
-describe('should test trackResult in select controller', () => {
   it('should test whether the getTrackResult from trackService is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');

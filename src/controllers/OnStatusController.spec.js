@@ -54,7 +54,7 @@ const request = {
   },
 };
 
-describe('should test OnStatus', () => {
+describe('OnStatus Controller', () => {
   it('should test whether public key is acquired', async () => {
     await OnStatusController.onStatus(request);
     expect(LookUpService.getPublicKeyWithSubscriberId).toBeCalled();

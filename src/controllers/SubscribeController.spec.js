@@ -47,7 +47,7 @@ const request = {
   },
 };
 
-describe('test subscribe from subscibeController', () => {
+describe('Subscribe Controller', () => {
   it('should test status service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');

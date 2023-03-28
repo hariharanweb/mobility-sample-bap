@@ -8,7 +8,7 @@ vi.mock('../services/ConfirmService');
 
 beforeEach(() => {
   ConfirmService.confirm = vi.fn();
-  ConfirmService.confirm = vi.fn();
+  ConfirmService.getConfirmResult = vi.fn();
 });
 
 const request = {
@@ -48,9 +48,7 @@ describe('should test confirm controller', () => {
     await ConfirmController.confirm(request, res);
     expect(res.send).toBeCalled();
   });
-});
 
-describe('should test confirmResult in conifrm controller', () => {
   it('should test whether the getConfirmResult from confirm service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');

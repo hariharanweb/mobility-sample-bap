@@ -54,7 +54,7 @@ const request = {
   },
 };
 
-describe('should test OnInit', () => {
+describe('OnSelect Controller', () => {
   it('should test whether public key is acquired', async () => {
     await OnSelectController.onSelect(request);
     expect(LookUpService.getPublicKeyWithUkId).toBeCalled();

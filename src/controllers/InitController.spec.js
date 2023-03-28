@@ -32,7 +32,7 @@ const request = {
   },
 };
 
-describe('should test Init controller', () => {
+describe('Init controller', () => {
   it('should test init service is called', async () => {
     const res = {};
     res.send = vi.fn();
@@ -46,9 +46,7 @@ describe('should test Init controller', () => {
     await InitController.init(request, res);
     expect(res.send).toBeCalled();
   });
-});
 
-describe('should test initResult in init controller', () => {
   it('should test whether the getInitResult from search service is called', async () => {
     const res = {};
     res.send = vi.fn(() => 'response send');
