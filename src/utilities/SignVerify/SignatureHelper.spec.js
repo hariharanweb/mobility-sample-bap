@@ -8,6 +8,7 @@ import SignatureHelper from './SignatureHelper';
 beforeEach(() => {
   AuthHeaderSplitter.splitAuthHeader = vi.fn(() => ({ created: 'sample' }));
   sodium.crypto_sign_detached = vi.fn(() => 'signedMessage');
+  sodium.from_base64 = vi.fn();
 });
 
 describe('Signature Helper', () => {
@@ -53,9 +54,16 @@ describe('Signature Helper', () => {
     const expected = 'dGhpcyBpcyBtZXNzYWdl';
 
     sodium.crypto_sign_detached = vi.fn(() => 'this is message');
-    sodium.from_base64 = vi.fn();
 
     const value = await SignatureHelper.createSignature(body, createdAndExpiresValue, privateKey);
+    expect(value).toBe(expected);
+  });
+
+  it('should test createSignedData', () => {
+    const expected = 'new message';
+    sodium.to_base64 = vi.fn(() => 'new message');
+    const value = SignatureHelper.createSignedData();
+
     expect(value).toBe(expected);
   });
 });
