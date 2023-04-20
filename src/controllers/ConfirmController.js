@@ -5,8 +5,8 @@ const confirm = async (req, res) => {
   res.send(context);
 };
 
-const confirmResult = (req, res) => {
-  const confirmResponse = ConfirmService.getConfirmResult(req.query.message_id);
+const confirmResult = async (req, res) => {
+  const confirmResponse = await ConfirmService.getConfirmResult(req.query.message_id);
   if (confirmResponse) {
     res.send(confirmResponse);
   } else {

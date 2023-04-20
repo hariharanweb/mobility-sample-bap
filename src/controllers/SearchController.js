@@ -5,8 +5,8 @@ const search = async (req, res) => {
   res.send(context);
 };
 
-const searchResult = (req, res) => {
-  const searchResponse = SearchService.getSearchResult(req.query.message_id);
+const searchResult = async (req, res) => {
+  const searchResponse = await SearchService.getSearchResult(req.query.message_id);
   if (searchResponse) {
     res.send(searchResponse);
   } else {

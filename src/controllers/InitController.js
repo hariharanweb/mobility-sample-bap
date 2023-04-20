@@ -5,8 +5,8 @@ const init = async (req, res) => {
   res.send(context);
 };
 
-const initResult = (req, res) => {
-  const initResponse = InitServices.getInitResult(req.query.message_id);
+const initResult = async (req, res) => {
+  const initResponse = await InitServices.getInitResult(req.query.message_id);
   if (initResponse) {
     res.send(initResponse);
   } else {

@@ -5,8 +5,8 @@ const track = async (req, res) => {
   res.send(context);
 };
 
-const trackResult = (req, res) => {
-  const trackResponse = TrackService.getTrackResult(req.query.message_id);
+const trackResult = async (req, res) => {
+  const trackResponse = await TrackService.getTrackResult(req.query.message_id);
   if (trackResponse) {
     res.send(trackResponse);
   } else {

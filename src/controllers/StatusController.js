@@ -5,8 +5,8 @@ const status = async (req, res) => {
   res.send(context);
 };
 
-const statusResult = (req, res) => {
-  const statusResponse = StatusService.getStatusResult(req.query.message_id);
+const statusResult = async (req, res) => {
+  const statusResponse = await StatusService.getStatusResult(req.query.message_id);
   if (statusResponse) {
     res.send(statusResponse);
   } else {

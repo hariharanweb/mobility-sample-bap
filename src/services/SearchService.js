@@ -30,7 +30,10 @@ const storeSearchResult = (response) => {
   MessageRespository.storeResult(response);
 };
 
-const getSearchResult = (messageId) => MessageRespository.getResult(messageId);
+const getSearchResult = async (messageId) => {
+  const response = await MessageRespository.getResult(messageId);
+  return response;
+};
 
 export default {
   search,

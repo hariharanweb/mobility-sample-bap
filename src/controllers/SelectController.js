@@ -5,8 +5,8 @@ const select = async (req, res) => {
   res.send(context);
 };
 
-const selectResult = (req, res) => {
-  const selectResponse = SelectService.getSelectResult(req.query.message_id);
+const selectResult = async (req, res) => {
+  const selectResponse = await SelectService.getSelectResult(req.query.message_id);
   if (selectResponse) {
     res.send(selectResponse);
   } else {
